@@ -1,0 +1,196 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and Background */
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #0d0d0d;
+    color: #00ff00;
+    overflow: hidden;
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(to bottom, #000, #111);
+}
+
+.binary-fall {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(transparent, transparent 2px, rgba(0, 255, 0, 0.1) 2px, rgba(0, 255, 0, 0.1) 4px);
+    animation: fall 10s linear infinite;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(100%);
+    }
+}
+
+/* Container */
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #00ff00;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+}
+
+/* Glitch Effect */
+.glitch {
+    position: relative;
+    color: #00ff00;
+    font-size: 2em;
+    text-transform: uppercase;
+    animation: glitch 2s infinite;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.glitch::before {
+    color: #ff00ff;
+    animation: glitch-top 1s infinite;
+}
+
+.glitch::after {
+    color: #00ffff;
+    animation: glitch-bottom 1.5s infinite;
+}
+
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(2px, 2px);
+    }
+    80% {
+        transform: translate(2px, -2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+@keyframes glitch-top {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, -2px);
+    }
+    40% {
+        transform: translate(-2px, 2px);
+    }
+    60% {
+        transform: translate(2px, -2px);
+    }
+    80% {
+        transform: translate(2px, 2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+@keyframes glitch-bottom {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(2px, 2px);
+    }
+    80% {
+        transform: translate(2px, -2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+/* Cyberpunk Forms */
+.cyber-form {
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #00ff00;
+    border-radius: 10px;
+}
+
+.cyber-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #111;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.cyber-button {
+    padding: 10px 20px;
+    background: #00ff00;
+    border: none;
+    color: #000;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.cyber-button:hover {
+    background: #ff00ff;
+}
+
+/* Results Section */
+.cyber-results {
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #00ff00;
+    border-radius: 10px;
+}
+
+.cyber-text {
+    color: #00ff00;
+    font-size: 1.2em;
+}

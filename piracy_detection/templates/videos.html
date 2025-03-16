@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watermarked Videos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .video-item {
+            border: 1px solid #00ff00;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Watermarked Videos</h1>
+        <div class="video-grid" id="videoList">
+        </div>
+    </div>
+
+    <script>
+        async function loadVideos() {
+            const response = await fetch('/videos');
+            const videos = await response.json();
+            const videoList = document.getElementById('videoList');
+            videoList.innerHTML = ''; // Clear existing videos
+
+            videos.forEach(video => {
+                const videoItem = document.createElement('div');
+                videoItem.className = 'video-item';
+                videoItem.innerHTML = `
+                    <h3>${video.filename}</h3>
+                    <video src="${video.url}" controls class="video-player"></video>
+                `;
+                videoList.appendChild(videoItem);
+            });
+            preventScreenRecording();
+        }
+
+        function preventScreenRecording() {
+            document.querySelectorAll('.video-player').forEach(video => {
+                video.addEventListener('play', () => {
+                    video.style.backgroundColor = "black";
+                });
+                video.addEventListener('pause', () => {
+                    video.style.backgroundColor = "";
+                });
+            });
+        }
+
+        loadVideos();
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Upload and Watermark Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="background">
+        <div class="binary-fall"></div>
+    </div>
+    <div class="container">
+        <h1 class="glitch" data-text="Video Upload and Watermark Detection">Video Upload and Watermark Detection</h1>
+
+        <!-- Upload Video Form -->
+        <form id="uploadForm" class="cyber-form">
+            <h2 class="glitch" data-text="Upload Video">Upload Video</h2>
+            <input type="file" id="videoInput" name="video" accept="video/*" required class="cyber-input">
+            <button type="submit" class="cyber-button">Upload</button>
+        </form>
+
+        <!-- Detect Watermark Form -->
+        <form id="detectForm" class="cyber-form">
+            <h2 class="glitch" data-text="Detect Watermark">Detect Watermark</h2>
+            <input type="file" id="detectInput" name="video" accept="video/*" required class="cyber-input">
+            <button type="submit" class="cyber-button">Detect Watermark</button>
+        </form>
+
+        <!-- Button to go to Videos Page -->
+        <a href="{{ url_for('videos_page') }}" class="cyber-button">View Watermarked Videos</a>
+
+        <!-- Results -->
+        <div id="results" class="cyber-results">
+            <h2 class="glitch" data-text="Results">Results</h2>
+            <p id="resultMessage" class="cyber-text"></p>
+        </div>
+    </div>
+
+    <script>
+        // Handle video upload
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData();
+            formData.append('video', document.getElementById('videoInput').files[0]);
+
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+            alert(result.message);
+        });
+
+        // Handle watermark detection
+        document.getElementById('detectForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData();
+            formData.append('video', document.getElementById('detectInput').files[0]);
+
+            const response = await fetch('/detect_watermark', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+            document.getElementById('resultMessage').innerText = result.message;
+        });
+    </script>
+</body>
+</html>
